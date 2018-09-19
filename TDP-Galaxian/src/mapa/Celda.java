@@ -8,7 +8,7 @@ private int y;
 	public Celda(int posy, int posx) {
 		x=posx;
 		y=posy;
-			}
+	}
 
 	public void agregarGameObject(GameObject g) {
 		

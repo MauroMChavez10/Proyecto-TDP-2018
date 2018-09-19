@@ -20,7 +20,15 @@ public abstract class GameObject {
 		return vida;
 	}
 	
-	public void mover() {}
+	public abstract void mover() ;
+	
+	public abstract void mover (int direccion);
 	
 	public void destruir() {}
-}
+	
+	public Celda getCelda() {
+		return miCelda;
+	}
+	
+	}
+
