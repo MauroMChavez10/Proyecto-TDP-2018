@@ -16,13 +16,15 @@ public abstract class GameObject {
 		return grafico;
 	}
 	
-	public abstract int getVida();
+	public int getVida() {
+		return vida;
+	}
 	
 	public abstract void mover() ;
 	
 	public abstract void mover (int direccion);
 	
-	public abstract void destruir();
+	public void destruir() {}
 	
 	public Celda getCelda() {
 		return miCelda;
