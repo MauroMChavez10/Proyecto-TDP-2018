@@ -4,7 +4,12 @@ import personajes.Jugador;
 import mapa.Celda;
 import GUI.*;
 import mapa.Mapa;
-
+/**
+ * 
+ * EL JUEGO SABE QUE ESTA MOVIENDO GAMEOBJECT
+ *	MOVER, LUEGO COLISIONAR .
+ *	
+ */
 public class Juego {
 
 	

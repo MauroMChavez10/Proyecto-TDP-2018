@@ -50,8 +50,8 @@ public class Celda {
 		Celda celdaDeAbajo;
 		try {
 				if(posX==0 && posY>=0 && y<miMapa.getFila()) { // TODA ESTA CONDICION PARA QUE NO SE PASE 
-					celdaDeArriba = getCelda(posX,posY+1);
-					celdaDeAbajo = getCelda(posX,posY-1);
+					celdaDeArriba = miMapa.getCelda(posX,posY+1);
+					celdaDeAbajo = miMapa.getCelda(posX,posY-1);
 					arregloCeldas[0]= celdaDeArriba;
 					arregloCeldas[1]= celdaDeAbajo;
 				}
@@ -78,15 +78,7 @@ public class Celda {
 		return y;
 	}
 	
-	/**
-	 * Este método esta bien ? o deberia pedirle al mapa? 
-	 * @param i fila
-	 * @param j columna 
-	 * @return La celda para mover gameObjects
-	 */
-	public Celda getCelda(int i, int j){
-		return this;
-	}
+	
 	
 	
 }

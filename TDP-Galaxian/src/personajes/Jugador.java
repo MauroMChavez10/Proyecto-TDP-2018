@@ -60,7 +60,9 @@ public class Jugador extends Personaje{
 		
 	public void mover() {};	
 
-
+	
+	public void serChocado() {};
+	
 }
 	
 
