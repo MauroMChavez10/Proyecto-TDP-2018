@@ -17,6 +17,7 @@ public class Juego {
 	private Jugador jugador;
 	private int puntaje;
 	
+	//hola
 	public Juego() {
 		mapaCombate= new Mapa(height,weight,this);
 										
