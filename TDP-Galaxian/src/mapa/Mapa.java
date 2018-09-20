@@ -11,5 +11,30 @@ public class Mapa {
 		this.columna=columna;
 	}
 	
-	//public Celda getCelda()
+	public int getFila() {
+		return fila;
+	}
+	
+	public int getColumna(){
+		return columna;
+	}
+	
+	public boolean celdaEsNula(int x,int y) {
+		return (matrizCelda[x][y] == null);
+	}
+	
+	public Celda getCelda(int x, int y) {
+		Celda salida=null ;
+		try {
+			
+			if(!celdaEsNula(x,y)) {
+				salida = matrizCelda[x][y];
+			}
+		
+		}catch(Exception w) {
+			w.printStackTrace();
+		}
+		return salida;
+	}
+	
 }
