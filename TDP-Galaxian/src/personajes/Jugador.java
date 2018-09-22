@@ -1,16 +1,19 @@
 package personajes;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 
-import mapa.Celda;
-
+import mapa.*;
 
 public class Jugador extends Personaje{
 	//Atributos de clase
 	private static final int TECLA_ARRIBA = KeyEvent.VK_UP;
-	private static final int TECLA_ABAJO = KeyEvent.VK_UP;
+	private static final int TECLA_ABAJO = KeyEvent.VK_DOWN;
 	private int vidaDelJugador; 
+	private String nombre=""; 
+
 	
-	public Jugador() {
+	public Jugador(String nom) {
+		nombre = nom;
 		vidaDelJugador= 100;
 	}
 	
@@ -19,19 +22,29 @@ public class Jugador extends Personaje{
 	 * Responsabilidad de la clase cliente, verificar que el jugador no este muerto.
 	 */
 	public void mover(int direccion) {
-		//Quiero saber mi posicion actual, soy un jugador y debo cambiarme a otra celda.
 		try {
 			Celda celdaJugador = this.getCelda();
-			Celda celdasVecinas[] = celdaJugador.getVecinas(celdaJugador.getX(),celdaJugador.getY());
-			// LUEGO DE SABER DONDE ESTOY. DEBO LIBER LA CELDA EN LA QUE ESTABA POSICIONADO ANTES DE MOVERME
-			celdaJugador.eliminarGameObject(this);
+			Mapa mapa = celdaJugador.getMapa();
+			LinkedList<Celda> vecinas = mapa.getVecinas(celdaJugador);
+			//System.out.println("SIZE VECINAS "+vecinas.size());
+			//System.out.println(celdaJugador.getMisGameObject().size());
 			
-			if(TECLA_ARRIBA == direccion) {
-				celdasVecinas[0].agregarGameObject(this);
+			if(1 == direccion) { //EL 1 ES PARA TESTEAR CAMBIENLO POR KeyEvent.VK_UP 
+				Celda celdaSuperior =vecinas.getFirst();
+				celdaSuperior.agregarGameObject(this);
+				celdaJugador.eliminarGameObject(this);
+				//System.out.println("Luego de mover al jugador hacia arriba la celda anterior tiene "+celdaJugador.getMisGameObject().size()+" gameobjects");
+				celdaJugador = celdaSuperior;
+				System.out.println(nombre+" se movío a la celda : ("+celdaJugador.getX()+","+celdaJugador.getY()+")");
+				System.out.println("El jugador "+nombre+" se movió hacia arriba");
 			}
-			
+
 			if(TECLA_ABAJO == direccion) {
-				celdasVecinas[1].agregarGameObject(this);
+				Celda celdaInferior =vecinas.getLast();
+				celdaInferior.agregarGameObject(this);
+				celdaJugador.eliminarGameObject(this);
+				celdaJugador = celdaInferior;
+				System.out.println("El jugador "+nombre+" se movió hacia abajo");
 			}
 			
 		}catch(Exception w) {
@@ -39,6 +52,8 @@ public class Jugador extends Personaje{
 		}
 		
 	}
+
+	
 		
 	public boolean estaMuerto() {
 		return (this.getVida() == 0);
@@ -57,11 +72,13 @@ public class Jugador extends Personaje{
 		}
 	}
 	
-		
+	
 	public void mover() {};	
 
 	
 	public void serChocado() {};
+	
+	
 	
 }
 	

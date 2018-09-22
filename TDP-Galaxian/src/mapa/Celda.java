@@ -1,19 +1,26 @@
 package mapa;
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 import java.util.LinkedList;
 
 import personajes.*;
 public class Celda {
 	
+	
+	private static final int LEFT = KeyEvent.VK_LEFT;
+	private static final int RIGHT = KeyEvent.VK_RIGHT;
+	private static final int UP = KeyEvent.VK_UP;
+	private static final int DOWN = KeyEvent.VK_DOWN;
 	private int x;
 	private int y;
-	private Mapa miMapa;
 	private Collection<GameObject> misGameObject;
+	private Mapa mapa ;
 
-	public Celda(int x, int y) {
+	public Celda(Mapa m,int x, int y) {
 		this.x=x;
 		this.y=y;
 		misGameObject = new LinkedList<GameObject>();
+		mapa = m;
 	}
 
 	/**
@@ -40,26 +47,21 @@ public class Celda {
 		}
 	}
 	
-	/**
-	 * Este método retornara las celdas vecinas, SOLAMENTE LA DE ARRIBA Y LA DE ABAJO
-	 * @return Un arreglo de 2 componentes 
-	 */
-	public Celda[] getVecinas(int posX,int posY) {
-		Celda arregloCeldas[] = new Celda[3]; // COMO MUCHO PUEDE HABER 4 CELDAS VECINAS.GUARDA SI SE LLENA 
-		Celda celdaDeArriba;
-		Celda celdaDeAbajo;
-		try {
-				if(posX==0 && posY>=0 && y<miMapa.getFila()) { // TODA ESTA CONDICION PARA QUE NO SE PASE 
-					celdaDeArriba = miMapa.getCelda(posX,posY+1);
-					celdaDeAbajo = miMapa.getCelda(posX,posY-1);
-					arregloCeldas[0]= celdaDeArriba;
-					arregloCeldas[1]= celdaDeAbajo;
-				}
-		}catch(Exception w) {
-			w.printStackTrace();
+
+	public Celda getVecina(int dir){
+		switch (dir){
+			case UP :
+				return this.mapa.getCelda(x, y - 1);
+			case DOWN :
+				return this.mapa.getCelda(x, y + 1);
+			case LEFT :
+				return this.mapa.getCelda(x - 1, y);
+			case RIGHT :
+				return this.mapa.getCelda(x + 1, y);
 		}
-		return arregloCeldas;
+		return null;
 	}
+	
 	
 	public void setX(int posx) {
 		x=posx;
@@ -78,6 +80,28 @@ public class Celda {
 		return y;
 	}
 	
+	public boolean esNula() {
+		boolean salida=false;
+	try {	
+		if (this==null) {
+				System.out.println("La celda es nula");
+				salida=true;
+			}else {
+				System.out.println("La celda no es nula");
+			}
+		}catch(Exception w) {
+			w.printStackTrace();
+		}
+	return salida;
+	}
+	
+	public Mapa getMapa() {
+		return mapa;
+	}
+	
+	public Collection<GameObject> getMisGameObject(){
+		return misGameObject;
+	}
 	
 	
 	

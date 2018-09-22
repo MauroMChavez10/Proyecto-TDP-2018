@@ -1,4 +1,5 @@
 package personajes;
+import mapa.*;
 
 public abstract class Personaje extends GameObject{
 	private int FuerzaImpacto;
@@ -9,5 +10,7 @@ public abstract class Personaje extends GameObject{
 	}
 
 	public void disparar() {}
+	
+	public void mover(int dir) {};
 	
 }
