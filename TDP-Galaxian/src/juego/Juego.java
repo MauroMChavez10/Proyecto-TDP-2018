@@ -49,7 +49,7 @@ public class Juego {
 				}
 			
 				if(filas >= 0 && columnaAInsertar == 0 && filaAInsertar>= 0) {
-					jugador= new Jugador("Goku");
+					jugador= new Jugador("Goku"); // CREACIÓN DEL JUGADOR !!!! NO HACERLO EN EL MAIN
 					jugador.setPosicion(celdaJugador);
 					celdaJugador.agregarGameObject(jugador);
 					System.out.println("El jugador se insertó en la Celda : ("+celdaJugador.getX()+","+celdaJugador.getY()+")");

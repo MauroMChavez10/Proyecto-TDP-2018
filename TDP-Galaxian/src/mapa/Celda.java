@@ -47,20 +47,6 @@ public class Celda {
 		}
 	}
 	
-
-	public Celda getVecina(int dir){
-		switch (dir){
-			case UP :
-				return this.mapa.getCelda(x, y - 1);
-			case DOWN :
-				return this.mapa.getCelda(x, y + 1);
-			case LEFT :
-				return this.mapa.getCelda(x - 1, y);
-			case RIGHT :
-				return this.mapa.getCelda(x + 1, y);
-		}
-		return null;
-	}
 	
 	
 	public void setX(int posx) {
@@ -80,20 +66,6 @@ public class Celda {
 		return y;
 	}
 	
-	public boolean esNula() {
-		boolean salida=false;
-	try {	
-		if (this==null) {
-				System.out.println("La celda es nula");
-				salida=true;
-			}else {
-				System.out.println("La celda no es nula");
-			}
-		}catch(Exception w) {
-			w.printStackTrace();
-		}
-	return salida;
-	}
 	
 	public Mapa getMapa() {
 		return mapa;

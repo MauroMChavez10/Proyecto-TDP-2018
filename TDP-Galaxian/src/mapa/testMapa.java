@@ -15,6 +15,7 @@ public class testMapa {
 				//EL JUGADOR YA ESTA CREADO 
 				Jugador jugadorCreadoPorElJuego = juego.getJugador();
 				Celda posicionJugador = jugadorCreadoPorElJuego.getCelda();
+				
 				/** Testeo de metodom mover 
 				 *
 				 */
