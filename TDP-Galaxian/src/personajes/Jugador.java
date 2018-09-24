@@ -13,7 +13,7 @@ public class Jugador extends Personaje{
 
 	
 	public Jugador(String nom) {
-		nombre = nom;
+		super(nom);
 		vidaDelJugador= 100;
 	}
 	
