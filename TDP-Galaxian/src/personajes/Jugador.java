@@ -1,7 +1,9 @@
 package personajes;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
-
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import mapa.*;
 
 public class Jugador extends Personaje{
@@ -11,10 +13,13 @@ public class Jugador extends Personaje{
 	private int vidaDelJugador; 
 	private String nombre=""; 
 
+
 	
-	public Jugador(String nom) {
-		super(nom);
+	public Jugador(Mapa mapa,int x,int y,String nom) {
+		super(mapa,x,y);
+		nombre = nom;
 		vidaDelJugador= 100;
+		imagen[0] = new ImageIcon(this.getClass().getResource("/imagenes/gokuPosInicial.gif"));
 	}
 	
 	/**
@@ -56,7 +61,7 @@ public class Jugador extends Personaje{
 	
 		
 	public boolean estaMuerto() {
-		return (this.getVida() == 0);
+		return (this.getVida() <= 0); // PREGUNTAR ESTO
 	}
 	
 	/**
@@ -72,6 +77,9 @@ public class Jugador extends Personaje{
 		}
 	}
 	
+	public String getNombre() {
+		return "Hola! Soy "+nombre;
+	}
 	
 	public void mover() {};	
 

@@ -8,6 +8,8 @@ public abstract class GameObject {
 	private ObjetoGrafico grafico;
 	private Celda miCelda;
 	
+	public GameObject(int x,int y) {};
+	
 	public void setPosicion(Celda c) {
 		miCelda=c;
 	}

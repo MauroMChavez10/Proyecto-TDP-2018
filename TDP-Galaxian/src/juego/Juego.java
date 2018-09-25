@@ -1,8 +1,9 @@
 package juego;
 import javax.swing.JPanel;
+
+import gui.*;
 import personajes.Jugador;
 import mapa.Celda;
-import GUI.*;
 import mapa.Mapa;
 /**
  * 
@@ -14,23 +15,21 @@ public class Juego {
 
 	
 	private JPanel panelMapa;
-	private GUI gui;
 	private Mapa mapaCombate;
 	private int cantidadEnemigos;
 	private static final  int height=40;
-	private static final int weight=80;
+	private static final int width=80;
 	private Jugador jugador;
 	private int puntaje;
+	private int posJugadorY = 7;
+	private int posJugadorX = 0;
+	private	int alturaGoku = 30;
 	
-	/**
-	 * Habría que ver esta bien pasarle como parametros filas o columnas.. o que lo maneje el mapa
-	 * @param filas altura del mapa 
-	 * @param columnas ancho del mapa
-	 */
-	public Juego(int filas,int columnas) {
-		mapaCombate = new Mapa(filas,columnas);
-		cantidadEnemigos = 10;
-		puntaje = 1000;									
+	
+	public Juego(GUI gui) {
+		mapaCombate = new Mapa(height,width,this);
+		jugador = new Jugador(mapaCombate,(posJugadorX*40),(posJugadorY*80)-alturaGoku,"Goku");
+		gui.add(jugador.getGrafico());
 	}
 	
 	/**
@@ -49,7 +48,7 @@ public class Juego {
 				}
 			
 				if(filas >= 0 && columnaAInsertar == 0 && filaAInsertar>= 0) {
-					jugador= new Jugador("Goku"); // CREACIÓN DEL JUGADOR !!!! NO HACERLO EN EL MAIN
+					//jugador= new Jugador(325,0,"Goku"); // CREACIÓN DEL JUGADOR !!!! ANTERIOR...
 					jugador.setPosicion(celdaJugador);
 					celdaJugador.agregarGameObject(jugador);
 					System.out.println("El jugador se insertó en la Celda : ("+celdaJugador.getX()+","+celdaJugador.getY()+")");

@@ -9,5 +9,7 @@ public abstract class Arma {
 	}
 	
 	public void colisionar (GameObject g) {}
+	
+	public abstract int getAlcance();
 
 }
