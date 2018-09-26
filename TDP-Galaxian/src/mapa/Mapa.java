@@ -8,7 +8,7 @@ public class Mapa {
 	private int filas, columnas;
 	
 	
-	public Mapa(int f, int c,Juego juego) {
+	public Mapa(int f, int c,Juego juego) { // ES NECESARIO PARAMETRO JUEGO ?
 			this.filas=f;
 			this.columnas=c;
 			matrizCelda = new Celda[filas][columnas];
