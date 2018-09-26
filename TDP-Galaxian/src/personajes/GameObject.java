@@ -8,7 +8,7 @@ public abstract class GameObject {
 	private ObjetoGrafico grafico;
 	private Celda miCelda;
 	
-	public void setPosicion(Celda c) {
+	public void setPosicion(Celda c) { //PONER LUEGO SET..ATRIBUTO 
 		miCelda=c;
 	}
 	

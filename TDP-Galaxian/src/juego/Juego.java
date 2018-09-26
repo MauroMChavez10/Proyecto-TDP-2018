@@ -1,8 +1,14 @@
 package juego;
+import java.awt.RenderingHints.Key;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Random;
+
 import javax.swing.JPanel;
-import personajes.Jugador;
+
+import gui.*;
+import personajes.*;
 import mapa.Celda;
-import GUI.*;
 import mapa.Mapa;
 /**
  * 
@@ -13,57 +19,48 @@ import mapa.Mapa;
 public class Juego {
 
 	
+	private char tecla;
 	private JPanel panelMapa;
-	private GUI gui;
 	private Mapa mapaCombate;
-	private int cantidadEnemigos;
-	private static final  int height=40;
-	private static final int weight=80;
+	private int cantidadEnemigos = 3;
+	private static final  int height=40; // este atributo no es necesario
+	private static final int width=80;// este atributo no es necesario
 	private Jugador jugador;
 	private int puntaje;
+	private int tamanioCelda=110; //ALTO DE GOKU = 80 Y LA CELDA DE DIFERENCIA TIENE 30
+	private int posJugadorYMAX;
+	private static final int posJugadorX = 0; //EL JUGADOR SOLO ESTA EN LA PRIMER COLUMNA
+	private int posJugadorY;
 	
-	/**
-	 * Habría que ver esta bien pasarle como parametros filas o columnas.. o que lo maneje el mapa
-	 * @param filas altura del mapa 
-	 * @param columnas ancho del mapa
-	 */
-	public Juego(int filas,int columnas) {
-		mapaCombate = new Mapa(filas,columnas);
-		cantidadEnemigos = 10;
-		puntaje = 1000;									
-	}
-	
-	/**
-	 * El jugador será insertado en la columna 0 y en la mitad de las filas en total del mapa
-	 */
-	public void insertarJugador() {
-		int filaAInsertar = 0;
-		int columnaAInsertar= 0;
-		Celda celdaJugador= null;
-		try {
-			int filas =mapaCombate.getFilas();
-				if(filas>=0) {
-					filaAInsertar = (filas/2);
-					 celdaJugador = mapaCombate.getCelda(filaAInsertar, columnaAInsertar);
-					// System.out.println("celdaJugador: ("+celdaJugador.getX()+","+celdaJugador.getY()+")");
-				}
-			
-				if(filas >= 0 && columnaAInsertar == 0 && filaAInsertar>= 0) {
-					jugador= new Jugador("Goku"); // CREACIÓN DEL JUGADOR !!!! NO HACERLO EN EL MAIN
-					jugador.setPosicion(celdaJugador);
-					celdaJugador.agregarGameObject(jugador);
-					System.out.println("El jugador se insertó en la Celda : ("+celdaJugador.getX()+","+celdaJugador.getY()+")");
-				}else {
-					System.out.println("El jugador no pudo ser insertado correctamente");
-				}
-			
-			
-		}catch(Exception w) {
-			w.printStackTrace();
-		}
+	public Juego(GUI gui) {
+		//MIRE LO QUE HIZO JUAN,Y TOME EN CUENTA EL TAMAÑO DE GOKU PARA VER EL MAPA Y SUS DIMENSIONES. LUEGO AFECTARA A LAS CELDAS
+		mapaCombate = new Mapa((gui.getWidth()-110) / tamanioCelda,(gui.getHeight()-220)/tamanioCelda,this);
+		
+		
+
+		posJugadorYMAX = gui.getHeight()-tamanioCelda;
+		System.out.println("posJugadorYMAX : "+posJugadorYMAX);
+		puntaje = 0 ;
+		insertarJugador();
+		
+		moverJugador(); // tiene problemas en el mover de jugador, no se conectar parte logica y grafica
+		gui.add(jugador.getGrafico());
+		// CUANDO TERMINO DE MOVER A TODAS LAS ENTIDADES HAY QUE LLAMAR A GUI.REPAINT() PARA QUE ACTUALICE LAS ENTIDADES
 		
 	}
 	
+	
+	public void insertarJugador() {
+		jugador = new Jugador(this,"Goku");
+		Celda celdaJugador = jugador.getCelda();
+		celdaJugador.agregarGameObject(jugador);
+	}
+	
+	
+	
+	public void moverJugador() {
+		jugador.mover(tecla);
+	}
 	public Mapa getMapa() {
 		return mapaCombate;
 	}
@@ -72,5 +69,19 @@ public class Juego {
 		return jugador;
 	}
 	
+	public int getPuntaje() {
+		return puntaje;
+		}
 	
+	public int getPosJugadorYMAX() {
+		return posJugadorYMAX;
+	}
+	
+	public int getPosJugadorX() {
+		return posJugadorX;
+	}
+
+
 }
+	
+
