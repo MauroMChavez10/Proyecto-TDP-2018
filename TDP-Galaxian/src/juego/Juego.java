@@ -1,8 +1,5 @@
 package juego;
-import java.awt.RenderingHints.Key;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Random;
+
 
 import javax.swing.JPanel;
 
@@ -26,6 +23,7 @@ public class Juego {
 	private static final  int height=40; // este atributo no es necesario
 	private static final int width=80;// este atributo no es necesario
 	private Jugador jugador;
+	private Enemigo enemigo;
 	private int puntaje;
 	private int tamanioCelda=110; //ALTO DE GOKU = 80 Y LA CELDA DE DIFERENCIA TIENE 30
 	private int posJugadorYMAX;
@@ -35,25 +33,41 @@ public class Juego {
 	public Juego(GUI gui) {
 		//MIRE LO QUE HIZO JUAN,Y TOME EN CUENTA EL TAMAÑO DE GOKU PARA VER EL MAPA Y SUS DIMENSIONES. LUEGO AFECTARA A LAS CELDAS
 		mapaCombate = new Mapa((gui.getWidth()-110) / tamanioCelda,(gui.getHeight()-220)/tamanioCelda,this);
-		
-		
 
 		posJugadorYMAX = gui.getHeight()-tamanioCelda;
 		System.out.println("posJugadorYMAX : "+posJugadorYMAX);
 		puntaje = 0 ;
-		insertarJugador();
 		
-		moverJugador(); // tiene problemas en el mover de jugador, no se conectar parte logica y grafica
-		gui.add(jugador.getGrafico());
+	
+		insertarJugador();
+		jugador.getGrafico();
+		//gui.add(); // parametro jugador.getGrafico()
+		
+		insertarEnemigo();
+		enemigo.getGrafico();
+		//gui.add(enemigo.getGrafico()); 
+		
+		//moverJugador(); // tiene problemas en el mover de jugador, no se conectar parte logica y grafica
+		//gui.add(jugador.getGrafico());
 		// CUANDO TERMINO DE MOVER A TODAS LAS ENTIDADES HAY QUE LLAMAR A GUI.REPAINT() PARA QUE ACTUALICE LAS ENTIDADES
 		
 	}
 	
 	
 	public void insertarJugador() {
-		jugador = new Jugador(this,"Goku");
-		Celda celdaJugador = jugador.getCelda();
+		
+		Celda celdaJugador = this.mapaCombate.getCelda(0, 0);
+		jugador = new Jugador(this,"Goku",celdaJugador);
 		celdaJugador.agregarGameObject(jugador);
+	}
+	
+	public void insertarEnemigo() {
+		int velocidadEnemigo = 10;
+		Celda celdaMajinBuu = this.mapaCombate.getCelda(1, 1);
+		Enemigo enemigo = new MajinBuu(this,velocidadEnemigo,"MajinBuu",celdaMajinBuu); 
+		//Celda celdaMajinBuu = enemigo.getCelda();
+		System.out.println("Celda MajinBuu : ("+celdaMajinBuu.getX()+","+celdaMajinBuu.getY()+")");
+		celdaMajinBuu.agregarGameObject(enemigo);
 	}
 	
 	
