@@ -47,7 +47,7 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
-		this.setBounds(0, 0, 1200, 700); //DEBE ESTAR EN LA PRIMER LINEA EL HEIGHT AND WIDTH DE LA GUI SINO NO ANDA
+		this.setBounds(0, 0, 1150, 700); //DEBE ESTAR EN LA PRIMER LINEA EL HEIGHT AND WIDTH DE LA GUI SINO NO ANDA
 		
 		juego = new Juego(this);
 		
@@ -57,16 +57,6 @@ public class GUI extends JFrame {
 		
 		Container contenedor = getContentPane(); 
 		contenedor.add(panel);
-		
-		/** INSERTO EL JUGADOR EN EL MAPA */
-		//Dimension im = juego.getJugador().getGrafico().getSize();
-		//System.out.println("alto goku : "+im.getHeight()+" ancho goku: "+im.getWidth());
-		/** TAMAÑO GUI */
-		
-		
-		//System.out.println(goku.getNombre());
-		//Celda celdaJugador = goku.getCelda();
-		//System.out.println(celdaJugador.getX());
 		
 		this.setResizable(false); // NO SE PUEDE CAMBIAR EL TAMAÑO DEL "MARCO" JFRAME
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

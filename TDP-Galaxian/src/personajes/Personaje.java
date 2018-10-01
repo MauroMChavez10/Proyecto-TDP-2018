@@ -4,7 +4,8 @@ import javax.swing.JLabel;
 
 
 import mapa.*;
-
+import juego.*;
+import mapa.*;
 public abstract class Personaje extends GameObject{
 	private int FuerzaImpacto;
 	private Arma miArma;
@@ -18,8 +19,8 @@ public abstract class Personaje extends GameObject{
 	 * 
 	 */
 
-	public Personaje() {
-		
+	public Personaje(Juego juego,Celda c) {
+		super(juego,c);
 	};	
 	//COMANDOS
 	

@@ -15,6 +15,7 @@ public	abstract  class Enemigo extends Personaje {
 	private int posEnemigoYInicial;
 	
 	protected Enemigo(Juego eljuego,int velEnemigo,String nom,Celda c) {
+		super(eljuego,c);
 		juego = eljuego;
 		velocidad= velEnemigo;
 		nombre = nom;

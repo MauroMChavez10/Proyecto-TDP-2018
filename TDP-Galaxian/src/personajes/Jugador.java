@@ -16,17 +16,10 @@ public class Jugador extends Personaje{
 	private int velocidadJugador;
 
 	public Jugador(Juego juego,String nom,Celda celda) { //agrego celda
-		super();
-		//Celda celdaJugador = new Celda(juego.getMapa(),juego.getPosJugadorX(),(juego.getPosJugadorYMAX())/2);
+		super(juego,celda);
 		this.setPosicion(celda);
-		//System.out.println("Celda Jugador : "+celdaJugador.getX()+" y : "+celdaJugador.getY());
-		vidaDelJugador= 100;
 		nombre = nom;
-		//GameObjectGrafico g = this.getGameObjectGrafico();
-	     this.setGameObjectGrafico(new JugadorGrafico(velocidadJugador,this.getCelda().getX(),this.getCelda().getY()));
-		
-		//System.out.println(celdaJugador.getX());
-		//imagen[0] = new ImageIcon(this.getClass().getResource("/imagenes/gokuPosInicial.gif")); ASI LO HACIAMOS ANTES
+	
 	}
 	
 
