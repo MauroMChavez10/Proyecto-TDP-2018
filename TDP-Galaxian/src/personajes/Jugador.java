@@ -1,13 +1,11 @@
 package personajes;
-import java.awt.RenderingHints.Key;
+
+
 import java.awt.event.KeyEvent;
-import java.util.LinkedList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import graficos.*;
 import juego.*;
 import mapa.Celda;
+//import graficos.*;
 
 public class Jugador extends Personaje{
 	//Atributos de clase
@@ -17,14 +15,11 @@ public class Jugador extends Personaje{
 	private String nombre=""; 
 	private int velocidadJugador;
 
-	public Jugador(Juego juego,String nom) {
-		super();
-		Celda celdaJugador = new Celda(juego.getMapa(),juego.getPosJugadorX(),(juego.getPosJugadorYMAX())/2);
-		this.setPosicion(celdaJugador);
-		//System.out.println(celdaJugador.getX());
+	public Jugador(Juego juego,String nom,Celda celda) { //agrego celda
+		super(juego,celda);
+		this.setPosicion(celda);
 		nombre = nom;
-		vidaDelJugador= 100;
-		imagen[0] = new ImageIcon(this.getClass().getResource("/imagenes/gokuPosInicial.gif"));
+	
 	}
 	
 
