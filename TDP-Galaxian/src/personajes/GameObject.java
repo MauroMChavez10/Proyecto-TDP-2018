@@ -20,9 +20,9 @@ public abstract class GameObject {
 		if(celda.getX() == 0) { //SOLO EL JUGADOR COMIENZA EN LA COLUMNA 0 
 			grafico = new JugadorGrafico(10,celda.getX(),celda.getY());
 		}else {
+			//if(celda.getX()== juego.getPosXMAX() || celda.getX() == juego.getPosXMAX()-1) // DEJA AL JUGADOR CREADO EN LAS ULTIMAS DOS COLUMNAS
 			grafico = new EnemigoGrafico(15,celda.getX(),celda.getY());
 		}
-		System.out.println("Estoy en constructor gameobject");
 		
 	}
 	
@@ -62,9 +62,6 @@ public abstract class GameObject {
 	public JLabel getGrafico() {
 		return grafico.getGrafico();
 	}
-	
-	//public JLabel getGraficoEnemigo() {
-		//return graficoEnemigo.getGrafico();
-	//}
+
 }
 

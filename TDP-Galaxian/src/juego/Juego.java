@@ -1,6 +1,8 @@
 package juego;
 
 
+import java.util.Random;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,7 +22,7 @@ public class Juego {
 	private char tecla;
 	private JPanel panelMapa;
 	private Mapa mapaCombate;
-	private int cantidadEnemigos = 3;
+	private int cantidadEnemigos;
 	private static final  int height=40; // este atributo no es necesario
 	private static final int width=80;// este atributo no es necesario
 	private Jugador jugador;
@@ -30,27 +32,52 @@ public class Juego {
 	private int posJugadorYMAX;
 	private static final int posJugadorX = 0; //EL JUGADOR SOLO ESTA EN LA PRIMER COLUMNA
 	private int posJugadorY;
+	private int posXMAX;
 	private static final int posEnemigoXMAX=10;
 	
 	public Juego(GUI gui) {
 		//MIRE LO QUE HIZO JUAN,Y TOME EN CUENTA EL TAMAÑO DE GOKU PARA VER EL MAPA Y SUS DIMENSIONES. LUEGO AFECTARA A LAS CELDAS
-		mapaCombate = new Mapa(((gui.getWidth()-110) / tamanioCelda),((gui.getHeight()-220)/tamanioCelda)*3,this); // PRIMER ARGUMENTO COLUMNAS, SEGUNDO FILAS
+		mapaCombate = new Mapa(((gui.getWidth()-110) / tamanioCelda),((gui.getHeight()-220)/tamanioCelda),this); // PRIMER ARGUMENTO COLUMNAS, SEGUNDO FILAS
 		// 12 FILAS , 9 COLUMNAS CUIDADO QUE CAMBIASTE Y MULTIPLICASTE POR 3 LAS FILAS 
 		System.out.println("filas "+((gui.getHeight()-110)/tamanioCelda)*2);
 		System.out.println("columnas "+((gui.getWidth()-110)/tamanioCelda));
+		cantidadEnemigos = mapaCombate.getFilas();
+		//posXMAX= (gui.getWidth()- tamanioCelda);
 		posJugadorYMAX = (gui.getHeight()-tamanioCelda);
 		System.out.println("ancho mapa"+gui.getWidth());
 		System.out.println("posJugadorYMAX : "+posJugadorYMAX);
 		puntaje = 0 ;
-		jugador = new Jugador(this,"Gohan",new Celda(mapaCombate,posJugadorX,posJugadorY)); //CREACION DE LOS JUGADORES ANTES DE PEDIRLES EL GRAFICO ACA
+		posJugadorY = ((gui.getHeight())/tamanioCelda)/2; //FALTARIA BAJARLO MAS PORQUE NO QUEDA EN LA MITAD.. 
+		jugador = new Jugador(this,"Goku",new Celda(mapaCombate,posJugadorX,posJugadorY)); //CREACION DE LOS JUGADORES ANTES DE PEDIRLES EL GRAFICO ACA
 		enemigo = new MajinBuu(this,10,"Majin",new Celda(mapaCombate,posEnemigoXMAX,posJugadorY));
 	
-		insertarJugador();
-		gui.add( jugador.getGrafico());
+		//insertarJugador();
+		//gui.add( jugador.getGrafico());
 		
 		insertarEnemigo();
 		
 		gui.add(enemigo.getGrafico()); 
+		
+		Random r  = new Random();
+		Enemigo malo;
+		for(int i = 0 ; i<cantidadEnemigos; i++) {
+			int x = r.nextInt(this.mapaCombate.getColumnas());
+			int y = r.nextInt(this.mapaCombate.getFilas());
+			System.out.println("el valor de x es random es : "+x);
+			//Celda c = mapaCombate.getCelda(x, y);
+			
+			malo = new MajinBuu(this,i+10,"Enemigo : + "+i+1,new Celda(mapaCombate,x,y));
+			
+			insertarEnemigo();
+			
+			//c.agregarGameObject(malo);
+			
+			gui.add(malo.getGrafico());
+			
+			
+			
+			
+		}
 		
 		//moverJugador(); // tiene problemas en el mover de jugador, no se conectar parte logica y grafica
 		// CUANDO TERMINO DE MOVER A TODAS LAS ENTIDADES HAY QUE LLAMAR A GUI.REPAINT() PARA QUE ACTUALICE LAS ENTIDADES
@@ -102,14 +129,11 @@ public class Juego {
 	public int getPosJugadorX() {
 		return posJugadorX;
 	}
-
-	public boolean esJugador(GameObject g) {
-		return g.equals(jugador);
-	}
 	
-	public boolean esEnemigo(GameObject g) {
-		return g.equals(enemigo);
+	public int getPosXMAX() {
+		return posXMAX;
 	}
+
 }
 	
 

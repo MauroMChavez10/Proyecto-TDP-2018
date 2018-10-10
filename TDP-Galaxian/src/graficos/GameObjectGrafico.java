@@ -38,7 +38,7 @@ public abstract class GameObjectGrafico {
 				i++;
 			}*/
 			grafico.setBounds(pos.x,pos.y, width, height); //  USA POINT PORQUE SI PIDE DOUBLE COMO ARGUMENTO X E Y
-			System.out.println("alto de etiqueta : "+grafico.getHeight()+" ancho de etiqueta : "+grafico.getWidth());
+			//System.out.println("alto de etiqueta : "+grafico.getHeight()+" ancho de etiqueta : "+grafico.getWidth());
 		}
 			//}
 		return grafico;
