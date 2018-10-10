@@ -51,8 +51,8 @@ public class Juego {
 		jugador = new Jugador(this,"Goku",new Celda(mapaCombate,posJugadorX,posJugadorY)); //CREACION DE LOS JUGADORES ANTES DE PEDIRLES EL GRAFICO ACA
 		enemigo = new MajinBuu(this,10,"Majin",new Celda(mapaCombate,posEnemigoXMAX,posJugadorY));
 	
-		//insertarJugador();
-		//gui.add( jugador.getGrafico());
+		insertarJugador();
+		gui.add( jugador.getGrafico());
 		
 		insertarEnemigo();
 		
@@ -64,6 +64,7 @@ public class Juego {
 			int x = r.nextInt(this.mapaCombate.getColumnas());
 			int y = r.nextInt(this.mapaCombate.getFilas());
 			System.out.println("el valor de x es random es : "+x);
+			System.out.println("El valor de y random es : "+y);
 			//Celda c = mapaCombate.getCelda(x, y);
 			
 			malo = new MajinBuu(this,i+10,"Enemigo : + "+i+1,new Celda(mapaCombate,x,y));
