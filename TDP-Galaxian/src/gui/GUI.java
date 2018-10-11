@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 import juego.Juego;
 import personajes.*;
 import mapa.*;
+import java.awt.Font;
+import java.awt.Color;
 
 public class GUI extends JFrame {
 	JLabel puntaje;
@@ -57,6 +59,19 @@ public class GUI extends JFrame {
 		
 		Container contenedor = getContentPane(); 
 		contenedor.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblPuntaje = new JLabel("Puntaje:");
+		lblPuntaje.setForeground(Color.YELLOW);
+		lblPuntaje.setFont(new Font("Broadway", Font.BOLD, 26));
+		lblPuntaje.setBounds(468, 11, 133, 38);
+		panel.add(lblPuntaje);
+		
+		JLabel label = new JLabel("0000");
+		label.setForeground(Color.YELLOW);
+		label.setFont(new Font("Broadway", Font.BOLD, 26));
+		label.setBounds(611, 11, 133, 38);
+		panel.add(label);
 		
 		this.setResizable(false); // NO SE PUEDE CAMBIAR EL TAMAÑO DEL "MARCO" JFRAME
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -67,5 +82,4 @@ public class GUI extends JFrame {
 			g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
 		}
 	};
-	
 }
