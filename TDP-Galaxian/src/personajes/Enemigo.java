@@ -7,12 +7,28 @@ import mapa.*;
  *
  */
 
-public	abstract  class Enemigo {
+public	abstract  class Enemigo extends Personaje {
 	private Juego juego;
+	private int velocidad;
+	private String nombre;
+	private int posEnemigoXInicial; //LOS ENEMIGOS COMIENZAN EN LA ULTIMA COLUMNA
+	private int posEnemigoYInicial;
 	
-	public Enemigo(int velEnemigo,Celda celdaEnemigo) {
+	protected Enemigo(Juego eljuego,int velEnemigo,String nom,Celda c) {
+		super(eljuego,c);
+		juego = eljuego;
+		velocidad= velEnemigo;
+		nombre = nom;
+		posEnemigoXInicial = eljuego.getMapa().getColumnas();
+		posEnemigoYInicial = eljuego.getMapa().getFilas();
 		
 	}
-
-	//public abstract void serGolpeado(DisparoDelJugador disparo);
+	
+	public  int getPosEnemigoXInicial() {
+		return posEnemigoXInicial;
+	} 
+	
+	public  int getPosEnemigoYInicial() {
+		return posEnemigoYInicial;
+	}
 }

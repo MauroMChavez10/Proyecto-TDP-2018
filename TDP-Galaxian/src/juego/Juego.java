@@ -1,9 +1,9 @@
 package juego;
-import java.awt.RenderingHints.Key;
-import java.util.Collection;
-import java.util.LinkedList;
+
+
 import java.util.Random;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import gui.*;
@@ -22,38 +22,83 @@ public class Juego {
 	private char tecla;
 	private JPanel panelMapa;
 	private Mapa mapaCombate;
-	private int cantidadEnemigos = 3;
+	private int cantidadEnemigos;
 	private static final  int height=40; // este atributo no es necesario
 	private static final int width=80;// este atributo no es necesario
 	private Jugador jugador;
+	private Enemigo enemigo;
 	private int puntaje;
 	private int tamanioCelda=110; //ALTO DE GOKU = 80 Y LA CELDA DE DIFERENCIA TIENE 30
 	private int posJugadorYMAX;
 	private static final int posJugadorX = 0; //EL JUGADOR SOLO ESTA EN LA PRIMER COLUMNA
 	private int posJugadorY;
+	private int posXMAX;
+	private static final int posEnemigoXMAX=10;
 	
 	public Juego(GUI gui) {
 		//MIRE LO QUE HIZO JUAN,Y TOME EN CUENTA EL TAMAÑO DE GOKU PARA VER EL MAPA Y SUS DIMENSIONES. LUEGO AFECTARA A LAS CELDAS
-		mapaCombate = new Mapa((gui.getWidth()-110) / tamanioCelda,(gui.getHeight()-220)/tamanioCelda,this);
-		
-		
-
-		posJugadorYMAX = gui.getHeight()-tamanioCelda;
+		mapaCombate = new Mapa(((gui.getWidth()-110) / tamanioCelda),((gui.getHeight()-220)/tamanioCelda),this); // PRIMER ARGUMENTO COLUMNAS, SEGUNDO FILAS
+		// 12 FILAS , 9 COLUMNAS CUIDADO QUE CAMBIASTE Y MULTIPLICASTE POR 3 LAS FILAS 
+		System.out.println("filas "+((gui.getHeight()-110)/tamanioCelda)*2);
+		System.out.println("columnas "+((gui.getWidth()-110)/tamanioCelda));
+		cantidadEnemigos = mapaCombate.getFilas();
+		//posXMAX= (gui.getWidth()- tamanioCelda);
+		posJugadorYMAX = (gui.getHeight()-tamanioCelda);
+		System.out.println("ancho mapa"+gui.getWidth());
 		System.out.println("posJugadorYMAX : "+posJugadorYMAX);
 		puntaje = 0 ;
-		insertarJugador();
+		posJugadorY = ((gui.getHeight())/tamanioCelda)/2; //FALTARIA BAJARLO MAS PORQUE NO QUEDA EN LA MITAD.. 
+		jugador = new Jugador(this,"Goku",new Celda(mapaCombate,posJugadorX,posJugadorY)); //CREACION DE LOS JUGADORES ANTES DE PEDIRLES EL GRAFICO ACA
+		enemigo = new MajinBuu(this,10,"Majin",new Celda(mapaCombate,posEnemigoXMAX,posJugadorY));
+	
+		//insertarJugador();
+		//gui.add( jugador.getGrafico());
 		
-		moverJugador(); // tiene problemas en el mover de jugador, no se conectar parte logica y grafica
-		gui.add(jugador.getGrafico());
+		insertarEnemigo();
+		
+		gui.add(enemigo.getGrafico()); 
+		
+		Random r  = new Random();
+		Enemigo malo;
+		for(int i = 0 ; i<cantidadEnemigos; i++) {
+			int x = r.nextInt(this.mapaCombate.getColumnas());
+			int y = r.nextInt(this.mapaCombate.getFilas());
+			System.out.println("el valor de x es random es : "+x);
+			//Celda c = mapaCombate.getCelda(x, y);
+			
+			malo = new MajinBuu(this,i+10,"Enemigo : + "+i+1,new Celda(mapaCombate,x,y));
+			
+			insertarEnemigo();
+			
+			//c.agregarGameObject(malo);
+			
+			gui.add(malo.getGrafico());
+			
+			
+			
+			
+		}
+		
+		//moverJugador(); // tiene problemas en el mover de jugador, no se conectar parte logica y grafica
 		// CUANDO TERMINO DE MOVER A TODAS LAS ENTIDADES HAY QUE LLAMAR A GUI.REPAINT() PARA QUE ACTUALICE LAS ENTIDADES
 		
 	}
 	
 	
 	public void insertarJugador() {
-		jugador = new Jugador(this,"Goku");
+		
 		Celda celdaJugador = jugador.getCelda();
+		//jugador = new Jugador(this,"Goku",celdaJugador);
 		celdaJugador.agregarGameObject(jugador);
+	}
+	
+	public void insertarEnemigo() {
+		//int velocidadEnemigo = 10;
+		Celda celdaMajinBuu = enemigo.getCelda();
+		//Enemigo enemigo = new MajinBuu(this,velocidadEnemigo,"MajinBuu",celdaMajinBuu); 
+		//Celda celdaMajinBuu = enemigo.getCelda();
+		System.out.println("Celda MajinBuu : ("+celdaMajinBuu.getX()+","+celdaMajinBuu.getY()+")");
+		celdaMajinBuu.agregarGameObject(enemigo);
 	}
 	
 	
@@ -69,6 +114,10 @@ public class Juego {
 		return jugador;
 	}
 	
+	public Enemigo getEnemigo() {
+		return enemigo;
+	}
+	
 	public int getPuntaje() {
 		return puntaje;
 		}
@@ -80,7 +129,10 @@ public class Juego {
 	public int getPosJugadorX() {
 		return posJugadorX;
 	}
-
+	
+	public int getPosXMAX() {
+		return posXMAX;
+	}
 
 }
 	
