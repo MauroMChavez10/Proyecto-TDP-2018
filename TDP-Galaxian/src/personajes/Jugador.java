@@ -14,13 +14,18 @@ public class Jugador extends Personaje{
 	private int vidaDelJugador; 
 	private String nombre=""; 
 	private int velocidadJugador;
+	private Colisionador c; 
 
 	public Jugador(Juego juego,String nom,Celda celda) { //agrego celda
 		super(juego,celda);
 		this.setPosicion(celda);
 		nombre = nom;
-	
+		danio = 25;
+		grafico = new JugadorGrafico(10,celda.getX(),celda.getY());
+		vidaDelJugador = 100;
 	}
+	
+	
 	
 
 	public boolean estaMuerto() {
@@ -44,10 +49,34 @@ public class Jugador extends Personaje{
 		return "Hola! Soy "+nombre;
 	}
 	
-	public void mover() {};	
+	public void mover(int dir) {
+		this.getCelda().setJugador(null);
+		switch(dir) {
+		case KeyEvent.VK_UP :
+			super.mover(KeyEvent.VK_UP);
+			break;
+			
+		case KeyEvent.VK_DOWN : 
+			super.mover(KeyEvent.VK_DOWN);
+			break;
+		}
+		this.getCelda().setJugador(this);
+	}	
+
+
 
 	
-	public void serChocado() {};
+	// SI EL COLISIONADOR ES EL DEL ENEMIGO, ENTONCES EL ENEMIGO CHOCO CONTRA EL JUGADOR 
+	// DEPENDE DE QUE TIPO DE COLISIONADOR DE LLEGUE.
+	public void Accept(Colisionador visitor) { 
+		visitor.VisitConcreteElementA(this);
+		
+	}
+	
+	public void reducirVida(Enemigo e) {
+		if(vidaDelJugador >= 0)
+		vidaDelJugador = vidaDelJugador - e.getDanio(); 
+	}
 	
 	
 	

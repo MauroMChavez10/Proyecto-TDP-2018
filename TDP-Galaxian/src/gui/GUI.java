@@ -47,7 +47,7 @@ public class GUI extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI() {
-		this.setBounds(0, 0, 1150, 700); //DEBE ESTAR EN LA PRIMER LINEA EL HEIGHT AND WIDTH DE LA GUI SINO NO ANDA
+		this.setBounds(0, 0, 1100, 700); // 1150 y 700 estaba DEBE ESTAR EN LA PRIMER LINEA EL HEIGHT AND WIDTH DE LA GUI SINO NO ANDA
 		
 		juego = new Juego(this);
 		
