@@ -12,8 +12,9 @@ public class MajinBuu extends EnemigoKamikaze{
 		super(juego,velMajinBu,nombre,celda);
 		//Celda celdaMajinBuu = new Celda(juego.getMapa(),this.getPosEnemigoXInicial(),this.getPosEnemigoXInicial());
 		this.setPosicion(celda);
+		danio = 30;
 		
-		
+		grafico = new EnemigoGrafico(15,celda.getX(),celda.getY());
 		//this.setGameObjectGrafico(new EnemigoGrafico(30,this.getCelda().getX(),this.getCelda().getY()));
 		/**
 		int filaAInsertar = juego.getMapa().getFilas();

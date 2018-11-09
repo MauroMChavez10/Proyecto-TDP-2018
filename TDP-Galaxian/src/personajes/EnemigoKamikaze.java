@@ -16,11 +16,7 @@ public class EnemigoKamikaze extends Enemigo {
 		return 0;
 	}
 
-	@Override
-	public void mover() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void destruir() {

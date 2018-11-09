@@ -41,7 +41,8 @@ public class Mapa {
 		}
 		return salida;
 	}
-	
+
+ /**	
 	public LinkedList<Celda> getVecinas(Celda c) {
 		LinkedList<Celda> vecinas =  new LinkedList<Celda>();
 		Celda celdaSuperior = null;
@@ -74,6 +75,6 @@ public class Mapa {
 		return vecinas;
 	}
 
-	
+	*/
 	
 }

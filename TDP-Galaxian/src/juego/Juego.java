@@ -33,13 +33,14 @@ public class Juego {
 	private static final int posJugadorX = 0; //EL JUGADOR SOLO ESTA EN LA PRIMER COLUMNA
 	private int posJugadorY;
 	private int posXMAX;
-	private static final int posEnemigoXMAX=10;
+	private int posYMaximo;
+	private static final int posEnemigoXMAX=9;
 	
 	public Juego(GUI gui) {
 		//MIRE LO QUE HIZO JUAN,Y TOME EN CUENTA EL TAMAÑO DE GOKU PARA VER EL MAPA Y SUS DIMENSIONES. LUEGO AFECTARA A LAS CELDAS
-		mapaCombate = new Mapa(((gui.getWidth()-110) / tamanioCelda),((gui.getHeight()-220)/tamanioCelda),this); // PRIMER ARGUMENTO COLUMNAS, SEGUNDO FILAS
-		// 12 FILAS , 9 COLUMNAS CUIDADO QUE CAMBIASTE Y MULTIPLICASTE POR 3 LAS FILAS 
-		System.out.println("filas "+((gui.getHeight()-110)/tamanioCelda)*2);
+		mapaCombate = new Mapa(((gui.getHeight()-40)/tamanioCelda),(gui.getWidth()-110) / tamanioCelda,this); // PRIMER ARGUMENTO COLUMNAS, SEGUNDO FILAS
+		// TENDRA 6 FILAS Y 9 COLUMNAS (gui.getWidth()-110) / tamanioCelda) filas /80 por los pixeles ?
+		System.out.println("filas "+((gui.getHeight()-40)/tamanioCelda));
 		System.out.println("columnas "+((gui.getWidth()-110)/tamanioCelda));
 		cantidadEnemigos = mapaCombate.getFilas();
 		//posXMAX= (gui.getWidth()- tamanioCelda);
@@ -47,17 +48,41 @@ public class Juego {
 		System.out.println("ancho mapa"+gui.getWidth());
 		System.out.println("posJugadorYMAX : "+posJugadorYMAX);
 		puntaje = 0 ;
+		//posJugadorY = (mapaCombate.getFilas()/2);
 		posJugadorY = ((gui.getHeight())/tamanioCelda)/2; //FALTARIA BAJARLO MAS PORQUE NO QUEDA EN LA MITAD.. 
-		jugador = new Jugador(this,"Goku",new Celda(mapaCombate,posJugadorX,posJugadorY)); //CREACION DE LOS JUGADORES ANTES DE PEDIRLES EL GRAFICO ACA
-		enemigo = new MajinBuu(this,10,"Majin",new Celda(mapaCombate,posEnemigoXMAX,posJugadorY));
-	
+		jugador = new Jugador(this,"Goku",new Celda(mapaCombate,posJugadorX,5)); //CREACION DE LOS JUGADORES ANTES DE PEDIRLES EL GRAFICO ACA
+		//enemigo = new MajinBuu(this,10,"Majin",new Celda(mapaCombate,posEnemigoXMAX,posJugadorY));
+		posYMaximo = 5;
 		insertarJugador();
 		gui.add( jugador.getGrafico());
+		 
+		int i = 0;
+		while(i < mapaCombate.getFilas()) // ya que debo insertar todos los enemigos en los dos columnas completas del final 
+		{	System.out.print(mapaCombate.getFilas());
+			Celda celdaEnemigo = new Celda(mapaCombate,posEnemigoXMAX,i);
+			enemigo = new MajinBuu(this,10,"Enemigo "+i+1,celdaEnemigo);
+			insertarEnemigo();
+			gui.add(enemigo.getGrafico()); 
+			i++;
+			
+			if(i == mapaCombate.getFilas())
+			{	
+				for(int j= 0; j<mapaCombate.getFilas();j++)
+				{	
+				celdaEnemigo = new Celda(mapaCombate,posEnemigoXMAX-1,j);
+				enemigo = new MajinBuu(this,10,"Enemigo "+i+1,celdaEnemigo);
+				insertarEnemigo();
+				gui.add(enemigo.getGrafico());
+				}
+			}
+			
+		}
 		
-		insertarEnemigo();
 		
-		gui.add(enemigo.getGrafico()); 
+		tecla = 'w';
+		moverJugador();
 		
+		/**
 		Random r  = new Random();
 		Enemigo malo;
 		for(int i = 0 ; i<cantidadEnemigos; i++) {
@@ -66,6 +91,14 @@ public class Juego {
 			System.out.println("el valor de x es random es : "+x);
 			System.out.println("El valor de y random es : "+y);
 			//Celda c = mapaCombate.getCelda(x, y);
+			if(y >= posYMaximo)
+			{	
+				y--;
+			}else
+			{
+			if( x == posJugadorX)
+				x = r.nextInt(this.mapaCombate.getColumnas());
+			}
 			
 			malo = new MajinBuu(this,i+10,"Enemigo : + "+i+1,new Celda(mapaCombate,x,y));
 			
@@ -78,7 +111,7 @@ public class Juego {
 			
 			
 			
-		}
+		}*/
 		
 		//moverJugador(); // tiene problemas en el mover de jugador, no se conectar parte logica y grafica
 		// CUANDO TERMINO DE MOVER A TODAS LAS ENTIDADES HAY QUE LLAMAR A GUI.REPAINT() PARA QUE ACTUALICE LAS ENTIDADES

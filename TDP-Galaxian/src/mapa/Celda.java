@@ -7,14 +7,15 @@ import personajes.*;
 public class Celda {
 	
 	
-	private static final int LEFT = KeyEvent.VK_LEFT;
-	private static final int RIGHT = KeyEvent.VK_RIGHT;
-	private static final int UP = KeyEvent.VK_UP;
-	private static final int DOWN = KeyEvent.VK_DOWN;
+	public static final int LEFT = KeyEvent.VK_LEFT;
+	public static final int RIGHT = KeyEvent.VK_RIGHT;
+	public static final int UP = KeyEvent.VK_UP;
+	public static final int DOWN = KeyEvent.VK_DOWN;
 	private int x;
 	private int y;
 	private Collection<GameObject> misGameObject;
 	private Mapa mapa ;
+	private Jugador jugador;
 
 	public Celda(Mapa m,int x, int y) {
 		this.x=x;
@@ -47,8 +48,19 @@ public class Celda {
 		}
 	}
 	
+	public Celda getVecina(int dir){
+		switch (dir){
+			case UP :
+				return this.mapa.getCelda(x, y - 1);
+			case DOWN :
+				return this.mapa.getCelda(x, y + 1);
+		}
+		return null;
+	}
 	
-	
+	public void setJugador(Jugador j) {
+		jugador = j;
+	}
 	public void setX(int posx) {
 		x=posx;
 		
